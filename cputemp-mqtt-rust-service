@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+
+depend() {
+    after network-online
+    want cgroups
+}
+
+supervisor=supervise-daemon
+name=cputemp-mqtt-rust-service
+command="/usr/sbin/cputemp-mqtt-rust"
+command_args="--silent >>/var/log/cputemp-mqtt-rust-service.log 2>&1"
+
+output_log=/var/log/cputemp-mqtt-rust-service.log
+error_log=/var/log/cputemp-mqtt-rust-service.log
+
+pidfile="/var/run/cputemp-mqtt-rust-service.pid"
+respawn_delay=5
+respawn_max=0
